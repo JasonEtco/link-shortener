@@ -3,11 +3,13 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/go-chi/chi"
-	"github.com/syntaqx/render"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
+
+	"github.com/go-chi/chi"
+	"github.com/syntaqx/render"
 )
 
 var db *DB
@@ -155,5 +157,10 @@ func main() {
 		panic(err)
 	}
 	fmt.Println("Up and running on port 3000!")
+	b, err := ioutil.ReadFile("./README.md")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(b))
 	http.ListenAndServe(":3000", r)
 }
